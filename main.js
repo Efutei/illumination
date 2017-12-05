@@ -1,5 +1,11 @@
 // phina.js をグローバル領域に展開
 phina.globalize();
+var ASSETS = {
+  image: {
+    light_on: './img/denkyuu_on.png',
+    light_off: './img/denkyuu_off.png'
+  }
+};
 var SCREEN_WIDTH  = 465;
 var SCREEN_HEIGHT = 665;
 
@@ -23,6 +29,7 @@ phina.define('MainScene', {
     lights.children.each(function(item){
       item.onpointstart = function(){
         console.log(item.id);
+        item.
       };
     });
 
@@ -31,7 +38,7 @@ phina.define('MainScene', {
   }
 
 });
-
+/*
 phina.define('Light', {
   superClass: 'CircleShape',
   init: function(gx, gy, id){
@@ -43,6 +50,17 @@ phina.define('Light', {
     this.setInteractive(true);
   }
 });
+*/
+phina.define('Light', {
+  superClass: 'Sprite',
+  init: function(gx, gy, id){
+    this.superInit('light_off', 50, 50);
+    this.x = gx;
+    this.y = gy;
+    this.id = id;
+    this.setInteractive(true);
+  }
+});
 
 // メイン処理
 phina.main(function() {
@@ -50,7 +68,8 @@ phina.main(function() {
   var app = GameApp({
     startLabel: 'main', // メインシーンから開始する
     width: SCREEN_WIDTH,
-    height: SCREEN_HEIGHT
+    height: SCREEN_HEIGHT,
+    assets: ASSETS,
   });
   // アプリケーション実行
   app.run();
