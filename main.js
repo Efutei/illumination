@@ -65,13 +65,18 @@ phina.define('Light', {
         .call(function(){
           this.target.turnOn();
         })
-        .wait(100)
+        .wait(200)
         .call(function(){
-          if(this.target.id > 0){
-            lights.children[this.target.id - 1].clickedAction(lights);
+          if(this.target.isOn){
+            if(this.target.id > 0){
+              lights.children[this.target.id - 1].clickedAction(lights);
+            }
+            if(this.target.id < 120){
+              lights.children[this.target.id + 1].clickedAction(lights);
+            }
           }
         })
-        .wait(200)
+        .wait(10)
         .call(function(){
           this.target.turnOff();
         });
