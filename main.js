@@ -26,17 +26,15 @@ phina.define('MainScene', {
     lights.x -= 6;
     lights.y -= 3;
 
-    lights.children.each(function(item){
-      item.onpointstart = function(){
-        console.log(item.id);
-        item.
+    lights.children.each(function(light){
+      light.onpointstart = function(){
+        light.clickedAction(lights);
       };
     });
 
   },
   update: function(){
   }
-
 });
 /*
 phina.define('Light', {
@@ -54,11 +52,37 @@ phina.define('Light', {
 phina.define('Light', {
   superClass: 'Sprite',
   init: function(gx, gy, id){
-    this.superInit('light_off', 50, 50);
+    this.superInit('light_off', 45, 45);
     this.x = gx;
     this.y = gy;
     this.id = id;
+    this.isOn = false;
     this.setInteractive(true);
+  },
+  clickedAction: function(lights){
+    this.tweener
+        .clear()
+        .call(function(){
+          this.target.turnOn();
+        })
+        .wait(100)
+        .call(function(){
+          if(this.target.id > 0){
+            lights.children[this.target.id - 1].clickedAction(lights);
+          }
+        })
+        .wait(200)
+        .call(function(){
+          this.target.turnOff();
+        });
+  },
+  turnOn: function(){
+    this.setImage('light_on', 50, 50);
+    this.isOn = true;
+  },
+  turnOff: function(){
+    this.setImage('light_off', 45, 45);
+    this.isOn = false;
   }
 });
 
