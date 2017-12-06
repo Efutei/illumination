@@ -16,7 +16,7 @@ phina.define('MainScene', {
     this.superInit();
     var self = this;
     // 背景色を指定
-    self.backgroundColor = '#444';
+    self.backgroundColor = '#446';
     var lights = DisplayElement().addChildTo(self);
     Array.range(1, 12, 1).each((Y) =>{
       Array.range(1, 12, 1).each((X) =>{
