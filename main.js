@@ -36,19 +36,7 @@ phina.define('MainScene', {
   update: function(){
   }
 });
-/*
-phina.define('Light', {
-  superClass: 'CircleShape',
-  init: function(gx, gy, id){
-    this.superInit();
-    this.x = gx;
-    this.y = gy;
-    this.id = id;
-    this.radius = 15;
-    this.setInteractive(true);
-  }
-});
-*/
+
 phina.define('Light', {
   superClass: 'Sprite',
   init: function(gx, gy, id){
@@ -60,26 +48,19 @@ phina.define('Light', {
     this.setInteractive(true);
   },
   clickedAction: function(lights){
-    this.tweener
-        .clear()
-        .call(function(){
-          this.target.turnOn();
-        })
-        .wait(200)
-        .call(function(){
-          if(this.target.isOn){
-            if(this.target.id > 0){
-              lights.children[this.target.id - 1].clickedAction(lights);
-            }
-            if(this.target.id < 120){
-              lights.children[this.target.id + 1].clickedAction(lights);
-            }
-          }
-        })
-        .wait(10)
-        .call(function(){
-          this.target.turnOff();
-        });
+      this.tweener
+          .clear()
+          .call(function(){
+            this.target.turnOn();
+          })
+          .wait(30)
+          .call(function(){
+            this.target.nextLightClick(lights, this.target.id);
+          })
+          .wait(40)
+          .call(function(){
+            this.target.turnOff();
+          });
   },
   turnOn: function(){
     this.setImage('light_on', 50, 50);
@@ -88,6 +69,63 @@ phina.define('Light', {
   turnOff: function(){
     this.setImage('light_off', 45, 45);
     this.isOn = false;
+  },
+  nextLightClick: function(lights, id){
+    if(id > 11 && id % 11 != 0){
+      var upLeftLight = lights.children[id - 12];
+      if(!upLeftLight.isOn){
+        upLeftLight.clickedAction(lights);
+      }
+    }
+
+    if(id > 11){
+      var upLight = lights.children[id - 11];
+      if(!upLight.isOn){
+        upLight.clickedAction(lights);
+      }
+    }
+
+    if(id > 11 && id % 11 != 10){
+      var upRightLight = lights.children[id - 10];
+      if(!upRightLight.isOn){
+        upRightLight.clickedAction(lights);
+      }
+    }
+
+    if(id > 0 && id % 11 != 0){
+      var leftLight = lights.children[id - 1];
+      if(!leftLight.isOn){
+        leftLight.clickedAction(lights);
+      }
+    }
+
+    if(id < 120 && id % 11 != 10){
+      var rightLight = lights.children[id + 1];
+      if(!rightLight.isOn){
+        rightLight.clickedAction(lights);
+      }
+    }
+
+    if(id < 109 && id % 11 != 0){
+      var downLeftLight = lights.children[id + 10];
+      if(!downLeftLight.isOn){
+        downLeftLight.clickedAction(lights);
+      }
+    }
+
+    if(id < 109){
+      var downLight = lights.children[id + 11];
+      if(!downLight.isOn){
+        downLight.clickedAction(lights);
+      }
+    }
+
+    if(id < 109 && id % 11 != 10){
+      var downRightLight = lights.children[id + 12];
+      if(!downRightLight.isOn){
+        downRightLight.clickedAction(lights);
+      }
+    }
   }
 });
 
