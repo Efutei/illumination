@@ -106,21 +106,21 @@ phina.define('Light', {
       }
     }
 
-    if(id < 109 && id % 11 != 0){
+    if(id < 110 && id % 11 != 0){
       var downLeftLight = lights.children[id + 10];
       if(!downLeftLight.isOn){
         downLeftLight.clickedAction(lights);
       }
     }
 
-    if(id < 109){
+    if(id < 110){
       var downLight = lights.children[id + 11];
       if(!downLight.isOn){
         downLight.clickedAction(lights);
       }
     }
 
-    if(id < 109 && id % 11 != 10){
+    if(id < 110 && id % 11 != 10){
       var downRightLight = lights.children[id + 12];
       if(!downRightLight.isOn){
         downRightLight.clickedAction(lights);
